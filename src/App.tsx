@@ -1,21 +1,15 @@
 import { useEffect, useState } from "react";
 import List from "./components/List/List";
 import Form from "./components/Form/Form";
+import { Subscriber } from "./types";
 import "./App.css";
 
-interface subscriber {
-  nick: string;
-  subMonths: number;
-  avatar: string;
-  description?: string;
-}
-
 interface AppState {
-  subscribers: Array<subscriber>;
+  subscribers: Array<Subscriber>;
   newSubscribersNumber: number;
 }
 
-const INITIAL_STATE: subscriber[] = [
+const INITIAL_STATE: Subscriber[] = [
   {
     nick: "jurgen",
     subMonths: 3,

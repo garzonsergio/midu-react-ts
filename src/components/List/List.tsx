@@ -1,10 +1,7 @@
+import { Subscriber } from "../../types";
+
 interface Props {
-  subs: Array<{
-    nick: string;
-    subMonths: number;
-    avatar: string;
-    description?: string;
-  }>;
+  subs: Array<Subscriber>;
 }
 const List = ({ subs }: Props) => {
   const renderList = (): JSX.Element[] => {

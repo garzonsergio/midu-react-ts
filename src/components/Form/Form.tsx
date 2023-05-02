@@ -1,13 +1,11 @@
 import { useState } from "react";
+import { Subscriber } from "../../types";
 
 interface FormState {
-  nick: string;
-  subMonths: number;
-  avatar: string;
-  description: string;
+  inputValues: Subscriber;
 }
 const Form = () => {
-  const [inputValues, setInputValues] = useState({
+  const [inputValues, setInputValues] = useState<FormState["inputValues"]>({
     nick: "",
     subMonths: 0,
     avatar: "",
