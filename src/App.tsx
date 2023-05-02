@@ -40,7 +40,7 @@ function App() {
   return (
     <>
       <div>
-        <List subs={subs}>hola</List>
+        <List subs={subs}/>
       </div>
     </>
   );
