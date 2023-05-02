@@ -6,7 +6,7 @@ interface Props {
     description?: string;
   }>;
 }
-function List({ subs }: Props) {
+const List: React.FC<Props> = ({ subs }) => {
   return (
     <ul>
       {subs?.map((sub) => {
@@ -22,6 +22,6 @@ function List({ subs }: Props) {
       })}
     </ul>
   );
-}
+};
 
 export default List;

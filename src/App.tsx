@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Children, useEffect, useState } from "react";
 import List from "./components/List/List";
 import "./App.css";
 
@@ -40,7 +40,7 @@ function App() {
   return (
     <>
       <div>
-        <List subs={subs}/>
+        <List subs={subs}>hola</List>
       </div>
     </>
   );
