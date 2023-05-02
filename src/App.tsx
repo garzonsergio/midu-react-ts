@@ -1,5 +1,6 @@
-import { Children, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import List from "./components/List/List";
+import Form from "./components/Form/Form";
 import "./App.css";
 
 interface subscriber {
@@ -40,7 +41,8 @@ function App() {
   return (
     <>
       <div>
-        <List subs={subs}/>
+        <List subs={subs} />
+        <Form />
       </div>
     </>
   );
