@@ -24,7 +24,7 @@ const INITIAL_STATE: Subscriber[] = [
 ];
 
 function App() {
-  const [subs, setSubs] = useState<AppState["subscribers"]>();
+  const [subs, setSubs] = useState<AppState["subscribers"]>([]);
   const [newSubsNumber, setNewSubsNumber] =
     useState<AppState["newSubscribersNumber"]>(0);
 
@@ -32,11 +32,15 @@ function App() {
     setSubs(INITIAL_STATE);
   }, []);
 
+  const handleNewSub = (newSub: Subscriber): void => {
+    setSubs((subs) => [...subs, newSub]);
+  };
+
   return (
     <>
       <div>
         <List subs={subs} />
-        <Form onNewSub={setSubs} />
+        <Form onNewSub={handleNewSub} />
       </div>
     </>
   );
