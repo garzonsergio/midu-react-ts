@@ -60,6 +60,7 @@ const Form = ({ onNewSub }: FormProps) => {
           onChange={handleChange}
         />
         <button type="submit">Save new Sub</button>
+        <button type="button">Clear the form</button>
       </form>
     </div>
   );

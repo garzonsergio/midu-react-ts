@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import List from "./components/List/List";
 import Form from "./components/Form/Form";
 import { Subscriber } from "./types";
@@ -27,6 +27,7 @@ function App() {
   const [subs, setSubs] = useState<AppState["subscribers"]>([]);
   const [newSubsNumber, setNewSubsNumber] =
     useState<AppState["newSubscribersNumber"]>(0);
+  const divRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setSubs(INITIAL_STATE);
@@ -38,7 +39,7 @@ function App() {
 
   return (
     <>
-      <div>
+      <div ref={divRef}>
         <List subs={subs} />
         <Form onNewSub={handleNewSub} />
       </div>
