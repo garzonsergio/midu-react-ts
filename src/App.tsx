@@ -3,6 +3,7 @@ import List from "./components/List/List";
 import Form from "./components/Form/Form";
 import { Subscriber, SubscriberFromApi } from "./types";
 import "./App.css";
+import axios from "axios";
 
 interface AppState {
   subscribers: Subscriber[];
@@ -17,7 +18,7 @@ function App() {
 
   useEffect(() => {
     const fetchSubs = (): Promise<SubscriberFromApi> => {
-      return fetch("http://localhost:3000/data").then((res) => res.json());
+      return axios.get("http://localhost:3000/data").then((response) => response.data);
     };
 
     const mapFromApiToSubs = (
