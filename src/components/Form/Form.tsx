@@ -1,51 +1,13 @@
-import { useReducer, useState } from "react";
+/* eslint-disable no-case-declarations */
 import { Subscriber } from "../../types";
-
-interface FormState {
-  inputValues: Subscriber;
-}
+import useNewSubForm from "../../hooks/useNewSubForm";
 
 interface FormProps {
   onNewSub: (newSub: Subscriber) => void;
 }
 
-const INITIAL_STATE = {
-  nick: "",
-  subMonths: 0,
-  avatar: "",
-  description: "",
-};
-
-type FormReducerAction =
-  | {
-      type: "change_value";
-      payload: {
-        inputName: string;
-        inputValue: string;
-      };
-    }
-  | {
-      type: "clear";
-    };
-
-const formReducer = (
-  state: FormState["inputValues"],
-  action: FormReducerAction
-) => {
-  switch (action.type) {
-    case "change_value":
-      const { inputName, inputValue } = action.payload;
-      return {
-        ...state,
-        [inputName]: inputValue,
-      };
-    case "clear":
-      return INITIAL_STATE;
-  }
-};
 const Form = ({ onNewSub }: FormProps) => {
-
-  const [inputValues, dispatch] = useReducer(formReducer, INITIAL_STATE);
+  const [inputValues, dispatch] = useNewSubForm();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -61,12 +23,10 @@ const Form = ({ onNewSub }: FormProps) => {
       type: "change_value",
       payload: { inputName: name, inputValue: value },
     });
-
   };
 
   const handleClear = () => {
     dispatch({ type: "clear" });
-  
   };
   return (
     <div>
