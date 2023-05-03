@@ -1,27 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import List from "./components/List/List";
 import Form from "./components/Form/Form";
-import { Subscriber } from "./types";
+import { Subscriber, SubscriberFromApi } from "./types";
 import "./App.css";
 
 interface AppState {
   subscribers: Subscriber[];
   newSubscribersNumber: number;
 }
-
-const INITIAL_STATE: Subscriber[] = [
-  {
-    nick: "jurgen",
-    subMonths: 3,
-    avatar: "https://i.pravatar.cc/150?u=jurgen",
-    description: "Nothing special",
-  },
-  {
-    nick: "cosmo",
-    subMonths: 12,
-    avatar: "https://i.pravatar.cc/150?u=cosmo",
-  },
-];
 
 function App() {
   const [subs, setSubs] = useState<AppState["subscribers"]>([]);
@@ -30,17 +16,45 @@ function App() {
   const divRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setSubs(INITIAL_STATE);
+    const fetchSubs = (): Promise<SubscriberFromApi> => {
+      return fetch("http://localhost:3000/data").then((res) => res.json());
+    };
+
+    const mapFromApiToSubs = (
+      apiResponse: SubscriberFromApi
+    ): Array<Subscriber> => {
+      return apiResponse.map((subFromApi) => {
+        const {
+          months: subMonths,
+          profileUrl: avatar,
+          nick,
+          description,
+        } = subFromApi;
+        return {
+          nick,
+          description,
+          avatar,
+          subMonths,
+        };
+      });
+    };
+
+    fetchSubs().then((apiSubs) => {
+      const subs = mapFromApiToSubs(apiSubs);
+      setSubs(subs);
+    });
   }, []);
 
   const handleNewSub = (newSub: Subscriber): void => {
     setSubs((subs) => [...subs, newSub]);
+    setNewSubsNumber((n) => n + 1);
   };
 
   return (
     <>
       <div ref={divRef}>
         <List subs={subs} />
+        New Subscribers : {newSubsNumber}
         <Form onNewSub={handleNewSub} />
       </div>
     </>

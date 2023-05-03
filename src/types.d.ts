@@ -4,3 +4,10 @@ export interface Subscriber {
   avatar: string;
   description?: string;
 }
+
+export type SubscriberFromApi = Array<{
+  nick: string;
+  months: number;
+  profileUrl: string;
+  description?: string;
+}>;
