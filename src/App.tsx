@@ -5,7 +5,7 @@ import { Subscriber } from "./types";
 import "./App.css";
 
 interface AppState {
-  subscribers: Array<Subscriber>;
+  subscribers: Subscriber[];
   newSubscribersNumber: number;
 }
 
@@ -36,7 +36,7 @@ function App() {
     <>
       <div>
         <List subs={subs} />
-        <Form />
+        <Form onNewSub={setSubs} />
       </div>
     </>
   );
