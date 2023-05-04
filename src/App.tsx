@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import List from "./components/List/List";
 import Form from "./components/Form/Form";
-import { Subscriber, SubscriberFromApi } from "./types";
 import "./App.css";
-import axios from "axios";
+import { Subscriber } from "./types";
+import { getAllSubs } from "./services/getAllSubs";
 
 interface AppState {
   subscribers: Subscriber[];
@@ -17,33 +17,7 @@ function App() {
   const divRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const fetchSubs = (): Promise<SubscriberFromApi> => {
-      return axios.get("http://localhost:3000/data").then((response) => response.data);
-    };
-
-    const mapFromApiToSubs = (
-      apiResponse: SubscriberFromApi
-    ): Array<Subscriber> => {
-      return apiResponse.map((subFromApi) => {
-        const {
-          months: subMonths,
-          profileUrl: avatar,
-          nick,
-          description,
-        } = subFromApi;
-        return {
-          nick,
-          description,
-          avatar,
-          subMonths,
-        };
-      });
-    };
-
-    fetchSubs().then((apiSubs) => {
-      const subs = mapFromApiToSubs(apiSubs);
-      setSubs(subs);
-    });
+    getAllSubs().then(setSubs);
   }, []);
 
   const handleNewSub = (newSub: Subscriber): void => {
